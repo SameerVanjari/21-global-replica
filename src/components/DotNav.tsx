@@ -49,7 +49,7 @@ export function DotNav() {
           key={id}
           onClick={() => scrollTo(id)}
           aria-label={`Scroll to ${label}`}
-          className="group relative flex cursor-none items-center"
+          className="group relative flex cursor-none items-center before:absolute before:-inset-3 before:content-['']"
         >
           <span
             className={cn(

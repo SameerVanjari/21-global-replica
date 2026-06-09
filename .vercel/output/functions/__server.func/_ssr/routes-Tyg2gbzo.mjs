@@ -3,7 +3,7 @@ import { j as require_react, m as require_jsx_runtime } from "../_libs/@tanstack
 import { t as clsx } from "../_libs/clsx.mjs";
 import { t as twMerge } from "../_libs/tailwind-merge.mjs";
 import { t as Lenis } from "../_libs/lenis.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-D7bFFpS4.js
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-Tyg2gbzo.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function cn(...inputs) {
@@ -368,12 +368,17 @@ function Cursor() {
 		x: 0,
 		y: 0
 	});
+	const scaleRef = (0, import_react.useRef)(1);
+	const targetScaleRef = (0, import_react.useRef)(1);
+	(0, import_react.useRef)("");
+	(0, import_react.useRef)("");
 	const animate = (0, import_react.useCallback)(() => {
 		const dx = mouseRef.current.x - posRef.current.x;
 		const dy = mouseRef.current.y - posRef.current.y;
 		posRef.current.x += dx * .12;
 		posRef.current.y += dy * .12;
-		if (cursorRef.current) cursorRef.current.style.transform = `translate(${posRef.current.x}px, ${posRef.current.y}px)`;
+		scaleRef.current += (targetScaleRef.current - scaleRef.current) * .12;
+		if (cursorRef.current) cursorRef.current.style.transform = `translate(${posRef.current.x}px, ${posRef.current.y}px) scale(${scaleRef.current})`;
 		if (dotRef.current) dotRef.current.style.transform = `translate(${mouseRef.current.x}px, ${mouseRef.current.y}px)`;
 		rafRef.current = requestAnimationFrame(animate);
 	}, []);
@@ -385,18 +390,21 @@ function Cursor() {
 		const target = e.currentTarget;
 		if (!target) return;
 		if (target.closest(".dot-nav, [class*='dot-nav']")) {
-			cursorRef.current?.classList.add("scale-[1.6]", "bg-[#1b365d]/15", "border-[#1b365d]");
+			targetScaleRef.current = 3;
+			cursorRef.current?.classList.add("bg-[#1b365d]/15", "border-[#1b365d]");
 			dotRef.current?.classList.add("opacity-0");
 		} else {
-			cursorRef.current?.classList.add("scale-[2.5]", "bg-transparent", "border-white/40");
+			targetScaleRef.current = 2.5;
+			cursorRef.current?.classList.add("bg-transparent", "border-white/40");
 			dotRef.current?.classList.add("opacity-0");
 		}
 	}, []);
 	const handleMouseLeaveLink = (0, import_react.useCallback)((e) => {
 		const target = e.currentTarget;
 		if (!target) return;
-		if (target.closest(".dot-nav, [class*='dot-nav']")) cursorRef.current?.classList.remove("scale-[1.6]", "bg-[#1b365d]/15", "border-[#1b365d]");
-		else cursorRef.current?.classList.remove("scale-[2.5]", "bg-transparent", "border-white/40");
+		if (target.closest(".dot-nav, [class*='dot-nav']")) cursorRef.current?.classList.remove("bg-[#1b365d]/15", "border-[#1b365d]");
+		else cursorRef.current?.classList.remove("bg-transparent", "border-white/40");
+		targetScaleRef.current = 1;
 		dotRef.current?.classList.remove("opacity-0");
 	}, []);
 	(0, import_react.useEffect)(() => {
@@ -524,7 +532,7 @@ function DotNav() {
 		children: SECTIONS.map(({ id, label }) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
 			onClick: () => scrollTo(id),
 			"aria-label": `Scroll to ${label}`,
-			className: "group relative flex cursor-none items-center",
+			className: "group relative flex cursor-none items-center before:absolute before:-inset-3 before:content-['']",
 			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: cn("block size-[5px] rounded-full transition-all duration-[400ms] ease-[cubic-bezier(0.16,1,0.3,1)]", activeSection === id ? "scale-[1.4] bg-[#1b365d]" : "bg-[#1b365d]/20 hover:scale-[1.4] hover:bg-[#1b365d]") }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 				className: cn("pointer-events-none absolute top-1/2 right-6 -translate-y-1/2 font-sans text-[0.6rem] tracking-[0.2em] whitespace-nowrap text-[#2d628c] uppercase transition-all duration-300", activeSection === id ? "translate-x-0 opacity-100" : "translate-x-[10px] opacity-0", "group-hover:translate-x-0 group-hover:opacity-100"),
 				children: label

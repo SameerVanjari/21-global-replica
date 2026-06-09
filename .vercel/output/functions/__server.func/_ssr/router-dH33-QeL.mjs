@@ -1,7 +1,7 @@
 import { c as HeadContent, d as lazyRouteComponent, f as createFileRoute, m as require_jsx_runtime, p as createRootRoute, s as Scripts, u as createRouter } from "../_libs/@tanstack/react-router+[...].mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/router-C9w0hFvF.js
+//#region node_modules/.nitro/vite/services/ssr/assets/router-dH33-QeL.js
 var import_jsx_runtime = require_jsx_runtime();
-var styles_default = "/assets/styles-CyT_QgXX.css";
+var styles_default = "/assets/styles-CzoT6rqU.css";
 var Route$1 = createRootRoute({
 	head: () => ({
 		meta: [
@@ -73,7 +73,7 @@ function RootDocument({ children }) {
 		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("head", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(HeadContent, {}) }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("body", { children: [children, /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Scripts, {})] })]
 	});
 }
-var $$splitComponentImporter = () => import("./routes-D7bFFpS4.mjs");
+var $$splitComponentImporter = () => import("./routes-Tyg2gbzo.mjs");
 var rootRouteChildren = { IndexRoute: createFileRoute("/")({ component: lazyRouteComponent($$splitComponentImporter, "component") }).update({
 	id: "/",
 	path: "/",

@@ -8,6 +8,10 @@ export function Cursor() {
   const rafRef = useRef<number>(0)
   const mouseRef = useRef({ x: 0, y: 0 })
   const posRef = useRef({ x: 0, y: 0 })
+  const scaleRef = useRef(1)
+  const targetScaleRef = useRef(1)
+  const bgRef = useRef("")
+  const borderRef = useRef("")
 
   const animate = useCallback(() => {
     const dx = mouseRef.current.x - posRef.current.x
@@ -15,8 +19,10 @@ export function Cursor() {
     posRef.current.x += dx * 0.12
     posRef.current.y += dy * 0.12
 
+    scaleRef.current += (targetScaleRef.current - scaleRef.current) * 0.12
+
     if (cursorRef.current) {
-      cursorRef.current.style.transform = `translate(${posRef.current.x}px, ${posRef.current.y}px)`
+      cursorRef.current.style.transform = `translate(${posRef.current.x}px, ${posRef.current.y}px) scale(${scaleRef.current})`
     }
     if (dotRef.current) {
       dotRef.current.style.transform = `translate(${mouseRef.current.x}px, ${mouseRef.current.y}px)`
@@ -34,10 +40,12 @@ export function Cursor() {
     if (!target) return
     const isDotNav = target.closest(".dot-nav, [class*='dot-nav']")
     if (isDotNav) {
-      cursorRef.current?.classList.add("scale-[1.6]", "bg-[#1b365d]/15", "border-[#1b365d]")
+      targetScaleRef.current = 3
+      cursorRef.current?.classList.add("bg-[#1b365d]/15", "border-[#1b365d]")
       dotRef.current?.classList.add("opacity-0")
     } else {
-      cursorRef.current?.classList.add("scale-[2.5]", "bg-transparent", "border-white/40")
+      targetScaleRef.current = 2
+      cursorRef.current?.classList.add("bg-transparent", "border-[#1b365d]")
       dotRef.current?.classList.add("opacity-0")
     }
   }, [])
@@ -47,10 +55,11 @@ export function Cursor() {
     if (!target) return
     const isDotNav = target.closest(".dot-nav, [class*='dot-nav']")
     if (isDotNav) {
-      cursorRef.current?.classList.remove("scale-[1.6]", "bg-[#1b365d]/15", "border-[#1b365d]")
+      cursorRef.current?.classList.remove("bg-[#1b365d]/15", "border-[#1b365d]")
     } else {
-      cursorRef.current?.classList.remove("scale-[2.5]", "bg-transparent", "border-white/40")
+      cursorRef.current?.classList.remove("bg-transparent", "border-white/40")
     }
+    targetScaleRef.current = 1
     dotRef.current?.classList.remove("opacity-0")
   }, [])
 
@@ -64,9 +73,19 @@ export function Cursor() {
 
     const attachListeners = () => {
       const selectors = [
-        "a", "button", "select", "input", '[role="button"]',
-        ".dot-nav-item", ".dot-nav a", ".dot-nav button",
-        ".proc-num", ".svc-card", ".why-card", ".fmcg-country", ".geo-tag",
+        "a",
+        "button",
+        "select",
+        "input",
+        '[role="button"]',
+        ".dot-nav-item",
+        ".dot-nav a",
+        ".dot-nav button",
+        ".proc-num",
+        ".svc-card",
+        ".why-card",
+        ".fmcg-country",
+        ".geo-tag",
       ]
       document.querySelectorAll(selectors.join(",")).forEach((el) => {
         el.addEventListener("mouseenter", handleMouseEnterLink)
@@ -84,9 +103,19 @@ export function Cursor() {
       window.removeEventListener("mousemove", handleMouseMove)
       observer.disconnect()
       const selectors = [
-        "a", "button", "select", "input", '[role="button"]',
-        ".dot-nav-item", ".dot-nav a", ".dot-nav button",
-        ".proc-num", ".svc-card", ".why-card", ".fmcg-country", ".geo-tag",
+        "a",
+        "button",
+        "select",
+        "input",
+        '[role="button"]',
+        ".dot-nav-item",
+        ".dot-nav a",
+        ".dot-nav button",
+        ".proc-num",
+        ".svc-card",
+        ".why-card",
+        ".fmcg-country",
+        ".geo-tag",
       ]
       document.querySelectorAll(selectors.join(",")).forEach((el) => {
         el.removeEventListener("mouseenter", handleMouseEnterLink)
@@ -99,13 +128,13 @@ export function Cursor() {
     <>
       <div
         ref={cursorRef}
-        className="pointer-events-none fixed left-0 top-0 z-[9999] hidden size-[34px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-primary/50 transition-[width,height,background-color,border-color] duration-300 ease-out md:flex"
+        className="pointer-events-none fixed top-0 left-0 z-[9999] hidden size-[34px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-primary/50 transition-[width,height,background-color,border-color] duration-300 ease-out md:flex"
       >
         <div className="size-1.5 rounded-full bg-transparent" />
       </div>
       <div
         ref={dotRef}
-        className="pointer-events-none fixed left-0 top-0 z-[9999] hidden size-[6px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary transition-opacity duration-200 md:block"
+        className="pointer-events-none fixed top-0 left-0 z-[9999] hidden size-[6px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary transition-opacity duration-200 md:block"
       />
     </>
   )
