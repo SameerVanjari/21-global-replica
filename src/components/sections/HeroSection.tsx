@@ -1,69 +1,153 @@
 "use client"
 
 import { useRef, useEffect } from "react"
-import { cn } from "@/lib/utils"
 
 export function HeroSection() {
-  const ref = useRef<HTMLElement>(null)
+  const sectionRef = useRef<HTMLElement>(null)
+  const bgRef = useRef<HTMLDivElement>(null)
+  const imgRef = useRef<HTMLImageElement>(null)
 
   useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const handleScroll = () => {
-      if (!el) return
-      const scrolled = window.scrollY
-      const bg = el.querySelector<HTMLDivElement>(".parallax-bg")
-      if (bg) bg.style.transform = `translateY(${scrolled * 0.35}px)`
+    const bg = bgRef.current
+    const img = imgRef.current
+    if (!bg || !img) return
+
+    let ticking = false
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true
+        requestAnimationFrame(() => {
+          const scrollY = window.scrollY
+          const vh = window.innerHeight
+          const progress = Math.min(scrollY / vh, 1)
+
+          const r = Math.round(203 + 41 * progress)
+          const g = Math.round(211 + 35 * progress)
+          const b = Math.round(219 + 29 * progress)
+          bg.style.backgroundColor = `rgb(${r},${g},${b})`
+
+          const scale = 1.08 + progress * 0.17
+          const translateY = progress * -12
+          const opacity =
+            progress < 0.15 ? 1 : Math.max(0, 1 - (progress - 0.15) / 0.6)
+          img.style.transform = `scale(${scale}) translateY(${translateY}%)`
+          img.style.opacity = String(opacity)
+
+          ticking = false
+        })
+      }
     }
-    window.addEventListener("scroll", handleScroll, { passive: true })
-    return () => window.removeEventListener("scroll", handleScroll)
+
+    let mouseCache = { scale: 1.08, translateY: 0 }
+    const onMouse = (e: MouseEvent) => {
+      const cx = window.innerWidth / 2
+      const cy = window.innerHeight / 2
+      const dx = ((e.clientX - cx) / cx) * 1.5
+      const dy = ((e.clientY - cy) / cy) * 0.8
+      const s = img.style.transform.match(/scale\(([\d.]+)\)/)
+      const ty = img.style.transform.match(/translateY\(([-\d.]+)%\)/)
+      const currScale = s ? parseFloat(s[1]) : mouseCache.scale
+      const currY = ty ? parseFloat(ty[1]) : mouseCache.translateY
+      img.style.transform = `scale(${currScale}) translateY(${currY}%) translate(${dx}%, ${dy}%)`
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true })
+    window.addEventListener("mousemove", onMouse, { passive: true })
+    onScroll()
+
+    return () => {
+      window.removeEventListener("scroll", onScroll)
+      window.removeEventListener("mousemove", onMouse)
+    }
   }, [])
 
   return (
     <section
-      id="hero"
-      ref={ref}
-      className="relative flex min-h-screen items-end overflow-hidden bg-brand"
+      id="home"
+      ref={sectionRef}
+      className="relative flex min-h-screen items-center overflow-hidden pt-36 pb-20"
     >
       <div
-        className="parallax-bg pointer-events-none absolute inset-0 size-full bg-cover bg-center opacity-40"
-        style={{ backgroundImage: "url('/about_clouds_bg.png')" }}
-      />
+        ref={bgRef}
+        className="pointer-events-none fixed inset-0 z-0 size-full overflow-hidden bg-[#cbd3db]"
+      >
+        <img
+          ref={imgRef}
+          src="/hero-gif.gif"
+          alt=""
+          aria-hidden="true"
+          className="size-full object-cover"
+          style={{
+            objectPosition: "center bottom",
+            transformOrigin: "center bottom",
+            willChange: "transform, opacity",
+            transition: "opacity 0.05s linear",
+            filter: "saturate(0.85) brightness(1.02)",
+          }}
+        />
+        <div
+          className="pointer-events-none absolute right-0 bottom-0 left-0"
+          style={{
+            height: "35%",
+            background: "linear-gradient(to bottom, transparent, #f4f6f8)",
+          }}
+        />
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, transparent 55%, rgba(27,54,93,0.15) 100%)",
+          }}
+        />
+      </div>
 
-      <div className="absolute inset-0 bg-[radial-gradient(#2d628c_1.5px,transparent_1.5px)] [background-size:24px_24px] opacity-[0.08]" />
-
-      <div className="hero-container relative z-10 w-full pb-20">
-        <div className="flex flex-col items-start">
-          <span className="hero-eyebrow block font-sans text-[0.68rem] font-normal tracking-[0.38em] text-white/80 uppercase">
-            Twenty1Global Trading LLC
-          </span>
-          <h1 className="heading-hero font-sans text-[clamp(2.2rem,4.5vw,3.8rem)] leading-[1.25] font-extralight tracking-[0.22em] text-white uppercase">
-            Powering
-            <br />
-            Global Trade
-            <br />
-            With Certainty
-          </h1>
-          <p className="body-intro mt-8 max-w-[550px] font-sans text-[1.05rem] leading-[1.95] font-light text-white/70">
-            A dynamic international trading company specialising in the sourcing
-            and delivery of high-quality commodities — with reliability,
-            precision, and strategic depth.
-          </p>
-          <a
-            href="#contact"
-            className="btn-primary mt-8 inline-block border border-white/30 px-[2.2rem] py-[0.9rem] font-sans text-[0.7rem] font-normal tracking-[0.25em] text-white uppercase transition-all duration-[400ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-white hover:bg-white/10 hover:tracking-[0.28em]"
-          >
-            Get in touch
-          </a>
+      <div className="hero-container relative z-10 w-full">
+        <div className="mx-auto max-w-[1200px]">
+          <div className="flex flex-col items-start">
+            <span className="hero-eyebrow mb-12 flex items-center gap-4 font-sans text-[10px] font-normal tracking-[0.35em] text-[#1b365d] uppercase">
+              Twenty1Global Trading
+            </span>
+            <h1 className="heading-hero mb-12 font-sans text-[clamp(2rem,4.5vw,3.8rem)] leading-[1.25] font-extralight tracking-[0.22em] text-[#0a0e17] uppercase">
+              Powering Global Trade.
+              <br />
+              Delivering Trusted Execution.
+              <br />
+              Managing Strategic Assets.
+            </h1>
+            <p className="body-intro max-w-[620px] font-sans text-[1.05rem] leading-relaxed font-light text-[#2b3e50]">
+              Headquartered in Dubai with a strategic presence in Geneva and
+              Singapore. We leverage deep logistical depth, board-level risk
+              management, and structured execution to connect critical resources
+              with high-demand global markets.
+            </p>
+          </div>
         </div>
       </div>
 
-      <div className="absolute bottom-12 left-1/2 z-10 -translate-x-1/2">
-        <div className="flex flex-col items-center gap-2">
-          <span className="font-sans text-[9px] font-normal tracking-[0.35em] text-white/60 uppercase">
-            Scroll
+      <div className="absolute right-[10.3%] bottom-28 z-10 hidden flex-col gap-10 text-right md:flex">
+        <div className="hero-stat">
+          <span className="stat-num font-sans text-2xl font-extralight tracking-[0.05em] text-[#0a0e17] uppercase">
+            GLOBAL
           </span>
-          <div className="h-9 w-[1px] animate-pulse bg-white/30" />
+          <span className="stat-label mt-1 block text-[9px] tracking-[0.25em] text-[#1b365d] uppercase">
+            Operating Network
+          </span>
+        </div>
+        <div className="hero-stat">
+          <span className="stat-num font-sans text-2xl font-extralight tracking-[0.05em] text-[#0a0e17] uppercase">
+            SECURE
+          </span>
+          <span className="stat-label mt-1 block text-[9px] tracking-[0.25em] text-[#1b365d] uppercase">
+            Airtight Compliance
+          </span>
+        </div>
+        <div className="hero-stat">
+          <span className="stat-num font-sans text-2xl font-extralight tracking-[0.05em] text-[#0a0e17] uppercase">
+            TRUSTED
+          </span>
+          <span className="stat-label mt-1 block text-[9px] tracking-[0.25em] text-[#1b365d] uppercase">
+            Strategic Capital
+          </span>
         </div>
       </div>
     </section>

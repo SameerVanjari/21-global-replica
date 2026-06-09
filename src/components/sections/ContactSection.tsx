@@ -3,24 +3,6 @@
 import { useRef, useEffect } from "react"
 import { cn } from "@/lib/utils"
 
-const OFFICES = [
-  {
-    city: "Geneva",
-    address: "Rue du Rhône 14, 1204 Geneva, Switzerland",
-    email: "geneva@21-global.com",
-  },
-  {
-    city: "Dubai",
-    address: "Marina Plaza, Suite 2902, Dubai Marina, UAE",
-    email: "dubai@21-global.com",
-  },
-  {
-    city: "Singapore",
-    address: "10 Collyer Quay, Ocean Financial Centre, Singapore",
-    email: "singapore@21-global.com",
-  },
-]
-
 export function ContactSection() {
   const ref = useRef<HTMLElement>(null)
 
@@ -48,50 +30,58 @@ export function ContactSection() {
         "data-[visible=true]:translate-y-0 data-[visible=true]:opacity-100"
       )}
     >
-      <span className="eyebrow mb-8 block font-sans text-[0.65rem] font-normal tracking-[0.35em] text-brand uppercase">
-        Contact
-      </span>
+      <div className="absolute inset-0 bg-[radial-gradient(#2d628c_1.5px,transparent_1.5px)] [background-size:24px_24px] opacity-[0.04]" />
+      <div className="relative z-10 mx-auto max-w-7xl">
+        <span className="eyebrow mb-8 block font-sans text-[0.65rem] font-normal tracking-[0.35em] text-brand uppercase">
+          Contact
+        </span>
 
-      <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-20">
-        <div className="lg:col-span-5">
-          <h2 className="heading-section font-sans text-[clamp(1.5rem,2.5vw,2.4rem)] leading-[1.35] font-extralight tracking-[0.18em] text-brand uppercase">
-            Get In
-            <br />
-            Touch
-          </h2>
-          <p className="mt-6 max-w-[400px] font-sans text-[0.95rem] leading-[1.9] font-light text-brand-muted">
-            We welcome inquiries from potential partners, suppliers, and
-            investors. Reach out to discuss opportunities for collaboration.
-          </p>
-          <a
-            href="mailto:info@21-global.com"
-            className="btn-primary mt-8 inline-block border border-brand/20 px-[2.2rem] py-[0.9rem] font-sans text-[0.7rem] font-normal tracking-[0.25em] text-brand uppercase transition-all duration-[400ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-brand hover:bg-brand/[0.05] hover:tracking-[0.28em]"
-          >
-            info@21-global.com
-          </a>
-        </div>
+        <h2 className="heading-section mb-20 font-sans text-[clamp(1.5rem,2.5vw,2.4rem)] leading-[1.35] font-extralight tracking-[0.18em] text-brand uppercase">
+          Secure Connection
+          <br />
+          Hubs
+        </h2>
 
-        <div className="lg:col-span-6 lg:col-start-7">
-          <div className="flex flex-col gap-10">
-            {OFFICES.map(({ city, address, email }) => (
-              <div
-                key={city}
-                className="border-l-2 border-brand/15 pl-6 transition-all duration-300 hover:border-brand/40"
-              >
-                <span className="font-sans text-[0.6rem] font-normal tracking-[0.3em] text-brand-muted/50 uppercase">
-                  {city}
-                </span>
-                <p className="mt-2 font-sans text-[0.85rem] leading-[1.8] font-light text-brand">
-                  {address}
-                </p>
-                <a
-                  href={`mailto:${email}`}
-                  className="mt-1 inline-block font-sans text-[0.7rem] font-light tracking-[0.08em] text-brand-muted/60 transition-colors duration-300 hover:text-brand"
-                >
-                  {email}
-                </a>
-              </div>
-            ))}
+        <div className="grid grid-cols-1 gap-12 pt-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+          <div>
+            <p className="mb-3 font-sans text-[10px] font-light uppercase tracking-[0.25em] text-brand-muted">
+              HQ Location
+            </p>
+            <p className="text-sm font-light leading-relaxed text-brand">
+              Dubai, United Arab Emirates
+              <br />
+              <span className="font-sans text-xs text-brand-muted">Marina Plaza, Suite 2902</span>
+            </p>
+          </div>
+
+          <div>
+            <p className="mb-3 font-sans text-[10px] font-light uppercase tracking-[0.25em] text-brand-muted">
+              Email Inquiries
+            </p>
+            <a
+              href="mailto:info@twenty1global.com"
+              className="text-sm font-light leading-relaxed text-brand transition-colors hover:text-brand-muted"
+            >
+              info@twenty1global.com
+            </a>
+          </div>
+
+          <div>
+            <p className="mb-3 font-sans text-[10px] font-light uppercase tracking-[0.25em] text-brand-muted">
+              Trading Sectors
+            </p>
+            <p className="text-xs font-light uppercase leading-relaxed tracking-wide text-brand-muted">
+              Oil & Gas &middot; Industrial Goods &middot; Energy &middot; FMCG
+            </p>
+          </div>
+
+          <div>
+            <p className="mb-3 font-sans text-[10px] font-light uppercase tracking-[0.25em] text-brand-muted">
+              Operational Centers
+            </p>
+            <p className="text-xs font-light uppercase leading-relaxed tracking-wide text-brand-muted">
+              Geneva &middot; Dubai HQ &middot; Singapore
+            </p>
           </div>
         </div>
       </div>
