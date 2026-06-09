@@ -36,13 +36,13 @@ export function ContactSection() {
           Contact
         </span>
 
-        <h2 className="heading-section mb-20 font-sans text-[clamp(1.5rem,2.5vw,2.4rem)] leading-[1.35] font-extralight tracking-[0.18em] text-brand uppercase">
+        <h2 className="heading-section mb-14 font-sans text-[clamp(1.5rem,2.5vw,2.4rem)] leading-[1.35] font-extralight tracking-[0.18em] text-brand uppercase md:mb-20">
           Secure Connection
           <br />
           Hubs
         </h2>
 
-        <div className="grid grid-cols-1 gap-12 pt-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+        <div className="grid grid-cols-1 gap-10 pt-12 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
           <div>
             <p className="mb-3 font-sans text-[10px] font-light uppercase tracking-[0.25em] text-brand-muted">
               HQ Location

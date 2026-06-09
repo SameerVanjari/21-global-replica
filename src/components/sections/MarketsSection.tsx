@@ -52,7 +52,7 @@ export function MarketsSection() {
         MARKETS
       </span>
 
-      <h2 className="heading-section font-sans text-[clamp(1.5rem,2.5vw,2.4rem)] font-extralight leading-[1.35] tracking-[0.18em] uppercase text-brand mb-20">
+      <h2 className="heading-section font-sans text-[clamp(1.5rem,2.5vw,2.4rem)] font-extralight leading-[1.35] tracking-[0.18em] uppercase text-brand mb-14 md:mb-20">
         OPERATING SECTORS &
         <br />
         GLOBAL COMMODITIES

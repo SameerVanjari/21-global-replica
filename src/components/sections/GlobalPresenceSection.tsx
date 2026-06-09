@@ -59,7 +59,7 @@ export function GlobalPresenceSection() {
     >
       <div className="absolute inset-0 bg-[radial-gradient(#2d628c_1.5px,transparent_1.5px)] [background-size:24px_24px] opacity-[0.04]" />
       <div className="relative z-10 mx-auto max-w-7xl">
-        <div className="mb-24 grid grid-cols-1 items-end gap-8 lg:grid-cols-12 lg:gap-20">
+        <div className="mb-16 grid grid-cols-1 items-end gap-8 md:mb-24 lg:grid-cols-12 lg:gap-20">
           <div className="lg:col-span-6">
             <span className="eyebrow mb-8 block font-sans text-[0.65rem] font-normal tracking-[0.35em] text-brand uppercase">
               GLOBAL PRESENCE
@@ -97,10 +97,10 @@ export function GlobalPresenceSection() {
           ))}
         </div>
 
-        <div className="relative mt-20 flex aspect-[2/1] min-h-[250px] w-full items-center justify-center border border-border p-4 md:min-h-[400px]">
+        <div className="relative mt-12 md:mt-20 flex aspect-[1.5/1] min-h-[220px] w-full items-center justify-center border border-border p-3 md:aspect-[2/1] md:min-h-[400px] md:p-4">
           <svg
             viewBox="0 0 1000 500"
-            className="h-full w-full text-brand-muted opacity-45"
+            className="h-full w-full text-brand-muted opacity-35 md:opacity-45"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
@@ -121,11 +121,22 @@ export function GlobalPresenceSection() {
               style={{ left: office.x, top: office.y }}
               className="geo-tag group absolute z-10 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-1 transition-all duration-300 hover:z-20"
             >
-              <span className="relative inline-flex h-3 w-3 items-center justify-center">
-                <span className="absolute inline-flex h-5 w-5 rounded-full border-2 border-brand/0 transition-all duration-300 group-hover:border-brand/30 group-hover:scale-125" />
-                <span className="inline-flex h-2 w-2 rounded-full border border-brand/40 bg-white shadow-sm transition-all duration-300 group-hover:scale-[2.5] group-hover:border-brand group-hover:bg-brand" />
+              <span className="relative inline-flex h-2.5 w-2.5 items-center justify-center md:h-3 md:w-3">
+                <span className="absolute inline-flex h-4 w-4 rounded-full border-2 border-brand/0 transition-all duration-300 group-hover:border-brand/30 group-hover:scale-125 md:h-5 md:w-5" />
+                <span className="inline-flex h-1.5 w-1.5 rounded-full border border-brand/40 bg-white shadow-sm transition-all duration-300 group-hover:scale-[2.5] group-hover:border-brand group-hover:bg-brand md:h-2 md:w-2" />
               </span>
-              <span className="mt-1 border border-transparent bg-white/95 px-2 py-0.5 font-mono font-sans text-[9px] uppercase tracking-[0.15em] text-[#1b365d]/70 shadow-sm transition-all duration-300 group-hover:scale-110 group-hover:border-brand/20 group-hover:text-brand">
+              <span className="mt-1 hidden border border-transparent bg-white/95 px-2 py-0.5 font-mono font-sans text-[9px] uppercase tracking-[0.15em] text-[#1b365d]/70 shadow-sm transition-all duration-300 group-hover:scale-110 group-hover:border-brand/20 group-hover:text-brand md:block">
+                {office.name}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-6 flex flex-wrap justify-center gap-x-8 gap-y-2 md:hidden">
+          {OFFICES.map((office) => (
+            <div key={office.name} className="flex items-center gap-2">
+              <span className="inline-flex h-2 w-2 rounded-full border border-brand/40 bg-white" />
+              <span className="font-sans text-[10px] uppercase tracking-[0.15em] text-brand">
                 {office.name}
               </span>
             </div>

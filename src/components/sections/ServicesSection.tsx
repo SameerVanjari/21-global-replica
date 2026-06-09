@@ -64,7 +64,7 @@ export function ServicesSection() {
           Services
         </span>
 
-        <div className="mb-20 flex flex-col gap-12 lg:flex-row lg:gap-20">
+        <div className="mb-14 flex flex-col gap-10 md:mb-20 lg:flex-row lg:gap-20">
           <div className="flex-1">
             <h2 className="heading-section font-sans text-[clamp(1.5rem,2.5vw,2.4rem)] leading-[1.35] font-extralight tracking-[0.18em] text-brand uppercase">
               Structural Trade
@@ -82,25 +82,33 @@ export function ServicesSection() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-6 md:gap-8">
           {SERVICES.map(({ num, title, subtitle, desc }, i) => (
             <div
               key={num}
-              className="svc-card group items flex p-8"
+              className="svc-card group flex flex-col gap-4 p-6 md:flex-row md:items-center md:p-8"
               style={{ transitionDelay: `${i * 80}ms` }}
             >
-              <span className="flex-1 font-sans text-[0.6rem] font-normal tracking-[0.3em] text-brand-muted/50 uppercase">
+              <span className="hidden font-sans text-[0.6rem] font-normal tracking-[0.3em] text-brand-muted/50 uppercase md:block md:flex-1">
                 {num}
               </span>
-              <div className="flex-5">
-                <h3 className="heading-sub font-sans text-[0.95rem] font-normal tracking-[0.15em] text-brand uppercase">
+              <div className="flex-1 md:flex-[5]">
+                <div className="flex items-baseline gap-3 md:hidden">
+                  <span className="font-sans text-[0.6rem] font-normal tracking-[0.3em] text-brand-muted/50 uppercase">
+                    {num}
+                  </span>
+                  <h3 className="heading-sub font-sans text-[0.85rem] font-normal tracking-[0.15em] text-brand uppercase">
+                    {title}
+                  </h3>
+                </div>
+                <h3 className="heading-sub hidden font-sans text-[0.95rem] font-normal tracking-[0.15em] text-brand uppercase md:block">
                   {title}
                 </h3>
-                <span className="mt-1 block font-sans text-[0.55rem] tracking-[0.2em] text-brand-muted/40 uppercase">
+                <span className="mt-1 block font-sans text-[0.5rem] tracking-[0.2em] text-brand-muted/40 uppercase md:text-[0.55rem]">
                   {subtitle}
                 </span>
               </div>
-              <p className="flex-5 font-sans text-[0.85rem] leading-[1.8] font-light text-brand-muted">
+              <p className="flex-1 font-sans text-[0.82rem] leading-[1.7] font-light text-brand-muted md:flex-[5] md:text-[0.85rem] md:leading-[1.8]">
                 {desc}
               </p>
             </div>

@@ -64,7 +64,7 @@ export function ProcessSection() {
           OUR PROCESS
         </span>
 
-        <h2 className="heading-section mb-20 font-sans text-[clamp(1.5rem,2.5vw,2.4rem)] leading-[1.35] font-extralight tracking-[0.18em] text-brand uppercase">
+        <h2           className="heading-section mb-14 font-sans text-[clamp(1.5rem,2.5vw,2.4rem)] leading-[1.35] font-extralight tracking-[0.18em] text-brand uppercase md:mb-20">
           FIVE STAGES OF
           <br />
           FLAWLESS EXECUTION
@@ -74,7 +74,7 @@ export function ProcessSection() {
           {STEPS.map(({ num, title, desc }, i) => (
             <div
               key={num}
-              className="grid grid-cols-1 items-baseline gap-4 py-8 md:grid-cols-12"
+              className="grid grid-cols-1 items-baseline gap-3 py-6 md:gap-4 md:py-8 md:grid-cols-12"
               style={{ transitionDelay: `${i * 80}ms` }}
             >
               <div className="font-mono text-[11px] tracking-[0.25em] text-brand-muted md:col-span-1">

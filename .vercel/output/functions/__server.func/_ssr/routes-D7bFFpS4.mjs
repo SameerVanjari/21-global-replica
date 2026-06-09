@@ -3,7 +3,7 @@ import { j as require_react, m as require_jsx_runtime } from "../_libs/@tanstack
 import { t as clsx } from "../_libs/clsx.mjs";
 import { t as twMerge } from "../_libs/tailwind-merge.mjs";
 import { t as Lenis } from "../_libs/lenis.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-Cmy2YLem.js
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-D7bFFpS4.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function cn(...inputs) {
@@ -39,7 +39,9 @@ function Navbar() {
 	const [navState, setNavState] = (0, import_react.useState)("transparent");
 	const [activeSection, setActiveSection] = (0, import_react.useState)("");
 	const [lastScrollY, setLastScrollY] = (0, import_react.useState)(0);
+	const [menuOpen, setMenuOpen] = (0, import_react.useState)(false);
 	const handleScroll = (0, import_react.useCallback)(() => {
+		if (menuOpen) return;
 		const scrollY = window.scrollY;
 		if (scrollY <= 80) setNavState("transparent");
 		else if (scrollY > lastScrollY) setNavState("hidden");
@@ -57,18 +59,30 @@ function Navbar() {
 				}
 			}
 		}
-	}, [lastScrollY]);
+	}, [lastScrollY, menuOpen]);
 	(0, import_react.useEffect)(() => {
 		window.addEventListener("scroll", handleScroll, { passive: true });
 		return () => window.removeEventListener("scroll", handleScroll);
 	}, [handleScroll]);
-	const navClasses = cn("fixed z-[1000] flex items-center justify-between rounded-[15px] border border-transparent px-[2.2rem] py-[1.1rem]", "transition-all duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)]", "left-[10.3%] right-[10.3%] max-md:left-[1.5rem] max-md:right-[1.5rem] max-md:px-[1.2rem]", {
-		"bg-transparent border-transparent shadow-none text-brand top-6": navState === "transparent",
-		"bg-white/95 border-brand/5 text-brand top-6 shadow-[0_10px_40px_rgba(0,0,0,0.03)] backdrop-blur-md": navState === "white",
-		"opacity-0 pointer-events-none top-6 -translate-y-[130%]": navState === "hidden"
+	(0, import_react.useEffect)(() => {
+		if (menuOpen) document.body.style.overflow = "hidden";
+		else document.body.style.overflow = "";
+		return () => {
+			document.body.style.overflow = "";
+		};
+	}, [menuOpen]);
+	const scrollTo = (id) => {
+		setMenuOpen(false);
+		const el = document.getElementById(id);
+		if (el) el.scrollIntoView({ behavior: "smooth" });
+	};
+	const navClasses = cn("fixed z-[1000] flex items-center justify-between rounded-[15px] border border-transparent px-[2.2rem] py-[1.1rem]", "transition-all duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)]", "left-[10.3%] right-[10.3%] max-lg:left-[6%] max-lg:right-[6%] max-md:left-[1.2rem] max-md:right-[1.2rem] max-md:px-[1.2rem]", {
+		"bg-transparent border-transparent shadow-none text-brand top-6": navState === "transparent" && !menuOpen,
+		"bg-white/95 border-brand/5 text-brand top-6 shadow-[0_10px_40px_rgba(0,0,0,0.03)] backdrop-blur-md": navState === "white" || menuOpen,
+		"opacity-0 pointer-events-none top-6 -translate-y-[130%]": navState === "hidden" && !menuOpen
 	});
 	const linkBase = cn("relative text-[13px] font-light tracking-[0.15em] uppercase transition-colors duration-300", "after:absolute after:bottom-[-4px] after:left-0 after:h-[1px] after:w-0 after:bg-current after:transition-all after:duration-[400ms] after:ease-[cubic-bezier(0.16,1,0.3,1)]", "hover:after:w-full");
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("header", {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("header", {
 		className: navClasses,
 		children: [
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
@@ -77,7 +91,7 @@ function Navbar() {
 				children: "TWENTY1GLOBAL"
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("nav", {
-				className: "hidden md:block",
+				className: "hidden lg:block",
 				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("ul", {
 					className: "flex items-center gap-8",
 					children: NAV_LINKS.map(({ href, label }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
@@ -87,13 +101,61 @@ function Navbar() {
 					}) }, href))
 				})
 			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
-				href: "#contact",
-				className: cn("inline-block font-sans text-[0.7rem] font-normal tracking-[0.25em] uppercase px-[2.2rem] py-[0.9rem]", "border transition-all duration-[400ms] ease-[cubic-bezier(0.16,1,0.3,1)]", navState === "transparent" ? "text-brand border-brand/30 hover:border-brand hover:bg-brand/5 hover:tracking-[0.28em]" : "text-brand border-[#2b3e50]/25 hover:border-brand hover:bg-brand/5 hover:tracking-[0.28em]"),
-				children: "Get in touch"
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "flex items-center gap-4",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
+					href: "#contact",
+					className: cn("hidden lg:inline-block font-sans text-[0.7rem] font-normal tracking-[0.25em] uppercase px-[1.4rem] py-[0.7rem]", "border transition-all duration-[400ms] ease-[cubic-bezier(0.16,1,0.3,1)]", navState === "transparent" ? "text-brand border-brand/30 hover:border-brand hover:bg-brand/5 hover:tracking-[0.28em]" : "text-brand border-[#2b3e50]/25 hover:border-brand hover:bg-brand/5 hover:tracking-[0.28em]"),
+					children: "Get in touch"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+					onClick: () => setMenuOpen(!menuOpen),
+					"aria-label": "Toggle menu",
+					className: "relative z-[1001] flex size-8 flex-col items-center justify-center gap-[5px] lg:hidden",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: cn("block h-px w-5 bg-brand transition-all duration-[400ms] ease-[cubic-bezier(0.16,1,0.3,1)]", menuOpen && "translate-y-[6px] rotate-45") }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: cn("block h-px w-5 bg-brand transition-all duration-[400ms] ease-[cubic-bezier(0.16,1,0.3,1)]", menuOpen && "opacity-0") }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: cn("block h-px w-5 bg-brand transition-all duration-[400ms] ease-[cubic-bezier(0.16,1,0.3,1)]", menuOpen && "-translate-y-[6px] -rotate-45") })
+					]
+				})]
 			})
 		]
-	});
+	}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: cn("fixed inset-0 z-[999] flex flex-col bg-white transition-all duration-[700ms] ease-[cubic-bezier(0.16,1,0.3,1)] lg:hidden", menuOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"),
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+			className: "flex flex-1 flex-col items-center justify-center px-7",
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("nav", {
+				className: "w-full",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("ul", {
+					className: "flex flex-col items-center gap-8",
+					children: NAV_LINKS.map(({ href, label }, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", {
+						style: { transitionDelay: menuOpen ? `${200 + i * 80}ms` : "0ms" },
+						className: cn("transition-all duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)]", menuOpen ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"),
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+							onClick: () => scrollTo(href.replace("#", "")),
+							className: "font-sans text-[1.4rem] font-extralight tracking-[0.2em] uppercase text-brand transition-colors hover:text-brand/60",
+							children: label
+						})
+					}, href))
+				})
+			})
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: cn("flex flex-col items-center gap-5 pb-12 transition-all duration-[600ms] delay-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)]", menuOpen ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"),
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+				onClick: () => scrollTo("contact"),
+				className: "border border-brand/30 px-10 py-3.5 font-sans text-[0.8rem] font-normal tracking-[0.25em] uppercase text-brand transition-all hover:border-brand hover:bg-brand/5",
+				children: "Get in touch"
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "flex flex-col items-center gap-2",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+					className: "font-sans text-[10px] tracking-[0.3em] uppercase text-brand-muted/60",
+					children: "info@twenty1global.com"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+					className: "font-sans text-[9px] tracking-[0.2em] text-brand-muted/40",
+					children: "Dubai · Geneva · Singapore"
+				})]
+			})]
+		})]
+	})] });
 }
 var ENTITIES = [
 	{
@@ -159,7 +221,7 @@ function Footer() {
 			className: "mx-auto max-w-7xl",
 			children: [
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "mb-20 grid grid-cols-1 gap-12 md:grid-cols-4",
+					className: "mb-16 grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-12 lg:grid-cols-4 lg:gap-12",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 						className: "flex min-h-[220px] flex-col justify-between",
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
@@ -421,16 +483,16 @@ var SECTIONS = [
 		label: "Services"
 	},
 	{
-		id: "sustainability",
-		label: "Sustainability"
-	},
-	{
 		id: "markets",
 		label: "Markets"
 	},
 	{
 		id: "fmcg",
 		label: "FMCG"
+	},
+	{
+		id: "sustainability",
+		label: "Sustainability"
 	},
 	{
 		id: "contact",
@@ -458,13 +520,13 @@ function DotNav() {
 		if (el) el.scrollIntoView({ behavior: "smooth" });
 	};
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("nav", {
-		className: "fixed right-12 top-1/2 z-[900] hidden -translate-y-1/2 flex-col gap-7 lg:flex max-md:hidden",
+		className: "fixed top-1/2 right-8 z-[900] hidden -translate-y-1/2 flex-col gap-6 md:right-12 md:flex md:gap-7",
 		children: SECTIONS.map(({ id, label }) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
 			onClick: () => scrollTo(id),
 			"aria-label": `Scroll to ${label}`,
 			className: "group relative flex cursor-none items-center",
 			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: cn("block size-[5px] rounded-full transition-all duration-[400ms] ease-[cubic-bezier(0.16,1,0.3,1)]", activeSection === id ? "scale-[1.4] bg-[#1b365d]" : "bg-[#1b365d]/20 hover:scale-[1.4] hover:bg-[#1b365d]") }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-				className: cn("pointer-events-none absolute right-6 top-1/2 -translate-y-1/2 whitespace-nowrap font-sans text-[0.6rem] tracking-[0.2em] uppercase text-[#2d628c] transition-all duration-300", activeSection === id ? "translate-x-0 opacity-100" : "translate-x-[10px] opacity-0", "group-hover:translate-x-0 group-hover:opacity-100"),
+				className: cn("pointer-events-none absolute top-1/2 right-6 -translate-y-1/2 font-sans text-[0.6rem] tracking-[0.2em] whitespace-nowrap text-[#2d628c] uppercase transition-all duration-300", activeSection === id ? "translate-x-0 opacity-100" : "translate-x-[10px] opacity-0", "group-hover:translate-x-0 group-hover:opacity-100"),
 				children: label
 			})]
 		}, id))
@@ -559,18 +621,18 @@ function HeroSection() {
 				]
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				className: "hero-container relative z-10 w-full",
+				className: "hero-container relative z-10 w-full px-[10.3%] max-lg:px-[6%] max-md:px-7",
 				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 					className: "mx-auto max-w-[1200px]",
 					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 						className: "flex flex-col items-start",
 						children: [
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-								className: "hero-eyebrow mb-12 flex items-center gap-4 font-sans text-[10px] font-normal tracking-[0.35em] text-[#1b365d] uppercase",
+								className: "hero-eyebrow mb-8 md:mb-12 flex items-center gap-4 font-sans text-[10px] font-normal tracking-[0.35em] text-[#1b365d] uppercase",
 								children: "Twenty1Global Trading"
 							}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", {
-								className: "heading-hero mb-12 font-sans text-[clamp(2rem,4.5vw,3.8rem)] leading-[1.25] font-extralight tracking-[0.22em] text-[#0a0e17] uppercase",
+								className: "heading-hero mb-8 md:mb-12 font-sans text-[clamp(1.6rem,5.5vw,3.8rem)] leading-[1.2] font-extralight tracking-[0.18em] text-[#0a0e17] uppercase",
 								children: [
 									"Powering Global Trade.",
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {}),
@@ -580,7 +642,7 @@ function HeroSection() {
 								]
 							}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-								className: "body-intro max-w-[620px] font-sans text-[1.05rem] leading-relaxed font-light text-[#2b3e50]",
+								className: "body-intro max-w-[620px] font-sans text-[0.95rem] md:text-[1.05rem] leading-relaxed font-light text-[#2b3e50]",
 								children: "Headquartered in Dubai with a strategic presence in Geneva and Singapore. We leverage deep logistical depth, board-level risk management, and structured execution to connect critical resources with high-demand global markets."
 							})
 						]
@@ -588,7 +650,7 @@ function HeroSection() {
 				})
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "absolute right-[10.3%] bottom-28 z-10 hidden flex-col gap-10 text-right md:flex",
+				className: "absolute right-[10.3%] bottom-28 z-10 hidden flex-col gap-10 text-right lg:flex",
 				children: [
 					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 						className: "hero-stat",
@@ -617,6 +679,41 @@ function HeroSection() {
 							children: "TRUSTED"
 						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 							className: "stat-label mt-1 block text-[9px] tracking-[0.25em] text-[#1b365d] uppercase",
+							children: "Strategic Capital"
+						})]
+					})
+				]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "absolute bottom-16 left-0 right-0 z-10 flex justify-center gap-12 px-7 lg:hidden",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "text-center",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "block font-sans text-[0.7rem] font-extralight tracking-[0.05em] text-[#0a0e17] uppercase",
+							children: "GLOBAL"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "mt-0.5 block text-[7px] tracking-[0.2em] text-[#1b365d] uppercase",
+							children: "Operating Network"
+						})]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "text-center",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "block font-sans text-[0.7rem] font-extralight tracking-[0.05em] text-[#0a0e17] uppercase",
+							children: "SECURE"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "mt-0.5 block text-[7px] tracking-[0.2em] text-[#1b365d] uppercase",
+							children: "Airtight Compliance"
+						})]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "text-center",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "block font-sans text-[0.7rem] font-extralight tracking-[0.05em] text-[#0a0e17] uppercase",
+							children: "TRUSTED"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "mt-0.5 block text-[7px] tracking-[0.2em] text-[#1b365d] uppercase",
 							children: "Strategic Capital"
 						})]
 					})
@@ -898,7 +995,7 @@ function ServicesSection() {
 					children: "Services"
 				}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "mb-20 flex flex-col gap-12 lg:flex-row lg:gap-20",
+					className: "mb-14 flex flex-col gap-10 md:mb-20 lg:flex-row lg:gap-20",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 						className: "flex-1",
 						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h2", {
@@ -918,27 +1015,40 @@ function ServicesSection() {
 					})]
 				}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					className: "flex flex-col gap-8",
+					className: "flex flex-col gap-6 md:gap-8",
 					children: SERVICES.map(({ num, title, subtitle, desc }, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "svc-card group items flex p-8",
+						className: "svc-card group flex flex-col gap-4 p-6 md:flex-row md:items-center md:p-8",
 						style: { transitionDelay: `${i * 80}ms` },
 						children: [
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-								className: "flex-1 font-sans text-[0.6rem] font-normal tracking-[0.3em] text-brand-muted/50 uppercase",
+								className: "hidden font-sans text-[0.6rem] font-normal tracking-[0.3em] text-brand-muted/50 uppercase md:block md:flex-1",
 								children: num
 							}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "flex-5",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-									className: "heading-sub font-sans text-[0.95rem] font-normal tracking-[0.15em] text-brand uppercase",
-									children: title
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-									className: "mt-1 block font-sans text-[0.55rem] tracking-[0.2em] text-brand-muted/40 uppercase",
-									children: subtitle
-								})]
+								className: "flex-1 md:flex-[5]",
+								children: [
+									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "flex items-baseline gap-3 md:hidden",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+											className: "font-sans text-[0.6rem] font-normal tracking-[0.3em] text-brand-muted/50 uppercase",
+											children: num
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+											className: "heading-sub font-sans text-[0.85rem] font-normal tracking-[0.15em] text-brand uppercase",
+											children: title
+										})]
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+										className: "heading-sub hidden font-sans text-[0.95rem] font-normal tracking-[0.15em] text-brand uppercase md:block",
+										children: title
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+										className: "mt-1 block font-sans text-[0.5rem] tracking-[0.2em] text-brand-muted/40 uppercase md:text-[0.55rem]",
+										children: subtitle
+									})
+								]
 							}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-								className: "flex-5 font-sans text-[0.85rem] leading-[1.8] font-light text-brand-muted",
+								className: "flex-1 font-sans text-[0.82rem] leading-[1.7] font-light text-brand-muted md:flex-[5] md:text-[0.85rem] md:leading-[1.8]",
 								children: desc
 							})
 						]
@@ -1001,7 +1111,7 @@ function SustainabilitySection() {
 		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-0 bg-[radial-gradient(#2d628c_1.5px,transparent_1.5px)] [background-size:24px_24px] opacity-[0.06]" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 			className: "relative z-10 mx-auto max-w-7xl",
 			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "mb-24 grid grid-cols-1 items-end gap-8 lg:grid-cols-12",
+				className: "mb-16 grid grid-cols-1 items-end gap-8 md:mb-24 lg:grid-cols-12",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "lg:col-span-6",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
@@ -1106,7 +1216,7 @@ function AdvantagesSection() {
 					children: "ADVANTAGES"
 				}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h2", {
-					className: "heading-section mb-20 font-sans text-[clamp(1.5rem,2.5vw,2.4rem)] leading-[1.35] font-extralight tracking-[0.18em] text-brand uppercase",
+					className: "heading-section mb-14 font-sans text-[clamp(1.5rem,2.5vw,2.4rem)] leading-[1.35] font-extralight tracking-[0.18em] text-brand uppercase md:mb-20",
 					children: [
 						"THE Twenty1Global",
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {}),
@@ -1116,7 +1226,7 @@ function AdvantagesSection() {
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 					className: "flex flex-col",
 					children: ADVANTAGES.map(({ roman, title, desc }, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "grid grid-cols-1 items-baseline gap-4 py-8 md:grid-cols-12",
+						className: "grid grid-cols-1 items-baseline gap-3 py-6 md:gap-4 md:py-8 md:grid-cols-12",
 						style: { transitionDelay: `${i * 80}ms` },
 						children: [
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
@@ -1205,7 +1315,7 @@ function MarketsSection() {
 					children: "MARKETS"
 				}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h2", {
-					className: "heading-section font-sans text-[clamp(1.5rem,2.5vw,2.4rem)] font-extralight leading-[1.35] tracking-[0.18em] uppercase text-brand mb-20",
+					className: "heading-section font-sans text-[clamp(1.5rem,2.5vw,2.4rem)] font-extralight leading-[1.35] tracking-[0.18em] uppercase text-brand mb-14 md:mb-20",
 					children: [
 						"OPERATING SECTORS &",
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {}),
@@ -1281,7 +1391,7 @@ function GlobalPresenceSection() {
 			className: "relative z-10 mx-auto max-w-7xl",
 			children: [
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "mb-24 grid grid-cols-1 items-end gap-8 lg:grid-cols-12 lg:gap-20",
+					className: "mb-16 grid grid-cols-1 items-end gap-8 md:mb-24 lg:grid-cols-12 lg:gap-20",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 						className: "lg:col-span-6",
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
@@ -1324,10 +1434,10 @@ function GlobalPresenceSection() {
 					}, office.name))
 				}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "relative mt-20 flex aspect-[2/1] min-h-[250px] w-full items-center justify-center border border-border p-4 md:min-h-[400px]",
+					className: "relative mt-12 md:mt-20 flex aspect-[1.5/1] min-h-[220px] w-full items-center justify-center border border-border p-3 md:aspect-[2/1] md:min-h-[400px] md:p-4",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("svg", {
 						viewBox: "0 0 1000 500",
-						className: "h-full w-full text-brand-muted opacity-45",
+						className: "h-full w-full text-brand-muted opacity-35 md:opacity-45",
 						fill: "none",
 						xmlns: "http://www.w3.org/2000/svg",
 						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("g", {
@@ -1351,13 +1461,23 @@ function GlobalPresenceSection() {
 						},
 						className: "geo-tag group absolute z-10 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-1 transition-all duration-300 hover:z-20",
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-							className: "relative inline-flex h-3 w-3 items-center justify-center",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "absolute inline-flex h-5 w-5 rounded-full border-2 border-brand/0 transition-all duration-300 group-hover:border-brand/30 group-hover:scale-125" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "inline-flex h-2 w-2 rounded-full border border-brand/40 bg-white shadow-sm transition-all duration-300 group-hover:scale-[2.5] group-hover:border-brand group-hover:bg-brand" })]
+							className: "relative inline-flex h-2.5 w-2.5 items-center justify-center md:h-3 md:w-3",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "absolute inline-flex h-4 w-4 rounded-full border-2 border-brand/0 transition-all duration-300 group-hover:border-brand/30 group-hover:scale-125 md:h-5 md:w-5" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "inline-flex h-1.5 w-1.5 rounded-full border border-brand/40 bg-white shadow-sm transition-all duration-300 group-hover:scale-[2.5] group-hover:border-brand group-hover:bg-brand md:h-2 md:w-2" })]
 						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-							className: "mt-1 border border-transparent bg-white/95 px-2 py-0.5 font-mono font-sans text-[9px] uppercase tracking-[0.15em] text-[#1b365d]/70 shadow-sm transition-all duration-300 group-hover:scale-110 group-hover:border-brand/20 group-hover:text-brand",
+							className: "mt-1 hidden border border-transparent bg-white/95 px-2 py-0.5 font-mono font-sans text-[9px] uppercase tracking-[0.15em] text-[#1b365d]/70 shadow-sm transition-all duration-300 group-hover:scale-110 group-hover:border-brand/20 group-hover:text-brand md:block",
 							children: office.name
 						})]
 					}, office.name))]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "mt-6 flex flex-wrap justify-center gap-x-8 gap-y-2 md:hidden",
+					children: OFFICES.map((office) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "flex items-center gap-2",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "inline-flex h-2 w-2 rounded-full border border-brand/40 bg-white" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "font-sans text-[10px] uppercase tracking-[0.15em] text-brand",
+							children: office.name
+						})]
+					}, office.name))
 				})
 			]
 		})]
@@ -1413,7 +1533,7 @@ function ProcessSection() {
 					children: "OUR PROCESS"
 				}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h2", {
-					className: "heading-section mb-20 font-sans text-[clamp(1.5rem,2.5vw,2.4rem)] leading-[1.35] font-extralight tracking-[0.18em] text-brand uppercase",
+					className: "heading-section mb-14 font-sans text-[clamp(1.5rem,2.5vw,2.4rem)] leading-[1.35] font-extralight tracking-[0.18em] text-brand uppercase md:mb-20",
 					children: [
 						"FIVE STAGES OF",
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {}),
@@ -1423,7 +1543,7 @@ function ProcessSection() {
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 					className: "flex flex-col",
 					children: STEPS.map(({ num, title, desc }, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "grid grid-cols-1 items-baseline gap-4 py-8 md:grid-cols-12",
+						className: "grid grid-cols-1 items-baseline gap-3 py-6 md:gap-4 md:py-8 md:grid-cols-12",
 						style: { transitionDelay: `${i * 80}ms` },
 						children: [
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
@@ -1476,7 +1596,7 @@ function FMCGSection() {
 		ref,
 		className: cn("section relative bg-[#f4f6f8] px-[10.3%] py-28 max-lg:px-[6%] max-lg:py-24 max-md:px-7 max-md:py-20", "translate-y-8 opacity-0 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)]", "data-[visible=true]:translate-y-0 data-[visible=true]:opacity-100"),
 		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-0 bg-[radial-gradient(#2d628c_1.5px,transparent_1.5px)] [background-size:24px_24px] opacity-[0.04]" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-			className: "relative z-10 mx-auto grid max-w-7xl grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-20",
+			className: "relative z-10 mx-auto grid max-w-7xl grid-cols-1 items-start gap-10 lg:grid-cols-12 lg:gap-20",
 			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 				className: "lg:col-span-6",
 				children: [
@@ -1543,7 +1663,7 @@ function ContactSection() {
 					children: "Contact"
 				}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h2", {
-					className: "heading-section mb-20 font-sans text-[clamp(1.5rem,2.5vw,2.4rem)] leading-[1.35] font-extralight tracking-[0.18em] text-brand uppercase",
+					className: "heading-section mb-14 font-sans text-[clamp(1.5rem,2.5vw,2.4rem)] leading-[1.35] font-extralight tracking-[0.18em] text-brand uppercase md:mb-20",
 					children: [
 						"Secure Connection",
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {}),
@@ -1551,7 +1671,7 @@ function ContactSection() {
 					]
 				}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "grid grid-cols-1 gap-12 pt-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8",
+					className: "grid grid-cols-1 gap-10 pt-12 md:grid-cols-2 lg:grid-cols-4 lg:gap-8",
 					children: [
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 							className: "mb-3 font-sans text-[10px] font-light uppercase tracking-[0.25em] text-brand-muted",

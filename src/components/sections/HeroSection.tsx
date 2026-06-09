@@ -101,20 +101,20 @@ export function HeroSection() {
         />
       </div>
 
-      <div className="hero-container relative z-10 w-full">
+      <div className="hero-container relative z-10 w-full px-[10.3%] max-lg:px-[6%] max-md:px-7">
         <div className="mx-auto max-w-[1200px]">
           <div className="flex flex-col items-start">
-            <span className="hero-eyebrow mb-12 flex items-center gap-4 font-sans text-[10px] font-normal tracking-[0.35em] text-[#1b365d] uppercase">
+            <span className="hero-eyebrow mb-8 md:mb-12 flex items-center gap-4 font-sans text-[10px] font-normal tracking-[0.35em] text-[#1b365d] uppercase">
               Twenty1Global Trading
             </span>
-            <h1 className="heading-hero mb-12 font-sans text-[clamp(2rem,4.5vw,3.8rem)] leading-[1.25] font-extralight tracking-[0.22em] text-[#0a0e17] uppercase">
+            <h1 className="heading-hero mb-8 md:mb-12 font-sans text-[clamp(1.6rem,5.5vw,3.8rem)] leading-[1.2] font-extralight tracking-[0.18em] text-[#0a0e17] uppercase">
               Powering Global Trade.
               <br />
               Delivering Trusted Execution.
               <br />
               Managing Strategic Assets.
             </h1>
-            <p className="body-intro max-w-[620px] font-sans text-[1.05rem] leading-relaxed font-light text-[#2b3e50]">
+            <p className="body-intro max-w-[620px] font-sans text-[0.95rem] md:text-[1.05rem] leading-relaxed font-light text-[#2b3e50]">
               Headquartered in Dubai with a strategic presence in Geneva and
               Singapore. We leverage deep logistical depth, board-level risk
               management, and structured execution to connect critical resources
@@ -124,7 +124,7 @@ export function HeroSection() {
         </div>
       </div>
 
-      <div className="absolute right-[10.3%] bottom-28 z-10 hidden flex-col gap-10 text-right md:flex">
+      <div className="absolute right-[10.3%] bottom-28 z-10 hidden flex-col gap-10 text-right lg:flex">
         <div className="hero-stat">
           <span className="stat-num font-sans text-2xl font-extralight tracking-[0.05em] text-[#0a0e17] uppercase">
             GLOBAL
@@ -146,6 +146,33 @@ export function HeroSection() {
             TRUSTED
           </span>
           <span className="stat-label mt-1 block text-[9px] tracking-[0.25em] text-[#1b365d] uppercase">
+            Strategic Capital
+          </span>
+        </div>
+      </div>
+
+      <div className="absolute bottom-16 left-0 right-0 z-10 flex justify-center gap-12 px-7 lg:hidden">
+        <div className="text-center">
+          <span className="block font-sans text-[0.7rem] font-extralight tracking-[0.05em] text-[#0a0e17] uppercase">
+            GLOBAL
+          </span>
+          <span className="mt-0.5 block text-[7px] tracking-[0.2em] text-[#1b365d] uppercase">
+            Operating Network
+          </span>
+        </div>
+        <div className="text-center">
+          <span className="block font-sans text-[0.7rem] font-extralight tracking-[0.05em] text-[#0a0e17] uppercase">
+            SECURE
+          </span>
+          <span className="mt-0.5 block text-[7px] tracking-[0.2em] text-[#1b365d] uppercase">
+            Airtight Compliance
+          </span>
+        </div>
+        <div className="text-center">
+          <span className="block font-sans text-[0.7rem] font-extralight tracking-[0.05em] text-[#0a0e17] uppercase">
+            TRUSTED
+          </span>
+          <span className="mt-0.5 block text-[7px] tracking-[0.2em] text-[#1b365d] uppercase">
             Strategic Capital
           </span>
         </div>
