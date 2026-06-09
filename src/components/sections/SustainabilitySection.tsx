@@ -56,7 +56,8 @@ export function SustainabilitySection() {
         "data-[visible=true]:translate-y-0 data-[visible=true]:opacity-100",
       )}
     >
-      <div className="mx-auto max-w-7xl">
+      <div className="absolute inset-0 bg-[radial-gradient(#2d628c_1.5px,transparent_1.5px)] [background-size:24px_24px] opacity-[0.06]" />
+      <div className="relative z-10 mx-auto max-w-7xl">
         <div className="mb-24 grid grid-cols-1 items-end gap-8 lg:grid-cols-12">
           <div className="lg:col-span-6">
             <span className="eyebrow mb-8 block font-sans text-[0.65rem] font-normal tracking-[0.35em] text-brand uppercase">

@@ -8,6 +8,7 @@ import { AboutSection } from "@/components/sections/AboutSection"
 import { ServicesSection } from "@/components/sections/ServicesSection"
 import { SustainabilitySection } from "@/components/sections/SustainabilitySection"
 import { AdvantagesSection } from "@/components/sections/AdvantagesSection"
+import { LenisProvider } from "@/components/LenisProvider"
 import { MarketsSection } from "@/components/sections/MarketsSection"
 import { GlobalPresenceSection } from "@/components/sections/GlobalPresenceSection"
 import { ProcessSection } from "@/components/sections/ProcessSection"
@@ -20,6 +21,7 @@ function App() {
   return (
     <>
       <Cursor />
+      <LenisProvider />
       <DotNav />
       <Navbar />
 

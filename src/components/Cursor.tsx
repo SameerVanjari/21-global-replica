@@ -29,13 +29,28 @@ export function Cursor() {
     mouseRef.current.y = e.clientY
   }, [])
 
-  const handleMouseEnterLink = useCallback(() => {
-    cursorRef.current?.classList.add("scale-[2.5]", "bg-transparent", "border-white/40")
-    dotRef.current?.classList.add("opacity-0")
+  const handleMouseEnterLink = useCallback((e: Event) => {
+    const target = e.currentTarget as HTMLElement | null
+    if (!target) return
+    const isDotNav = target.closest(".dot-nav, [class*='dot-nav']")
+    if (isDotNav) {
+      cursorRef.current?.classList.add("scale-[1.6]", "bg-[#1b365d]/15", "border-[#1b365d]")
+      dotRef.current?.classList.add("opacity-0")
+    } else {
+      cursorRef.current?.classList.add("scale-[2.5]", "bg-transparent", "border-white/40")
+      dotRef.current?.classList.add("opacity-0")
+    }
   }, [])
 
-  const handleMouseLeaveLink = useCallback(() => {
-    cursorRef.current?.classList.remove("scale-[2.5]", "bg-transparent", "border-white/40")
+  const handleMouseLeaveLink = useCallback((e: Event) => {
+    const target = e.currentTarget as HTMLElement | null
+    if (!target) return
+    const isDotNav = target.closest(".dot-nav, [class*='dot-nav']")
+    if (isDotNav) {
+      cursorRef.current?.classList.remove("scale-[1.6]", "bg-[#1b365d]/15", "border-[#1b365d]")
+    } else {
+      cursorRef.current?.classList.remove("scale-[2.5]", "bg-transparent", "border-white/40")
+    }
     dotRef.current?.classList.remove("opacity-0")
   }, [])
 
@@ -47,18 +62,20 @@ export function Cursor() {
 
     window.addEventListener("mousemove", handleMouseMove, { passive: true })
 
-    const attachLinkListeners = () => {
-      const selectors = ["a", "button", "select", "input", '[role="button"]']
-      selectors.forEach((sel) => {
-        document.querySelectorAll(sel).forEach((el) => {
-          el.addEventListener("mouseenter", handleMouseEnterLink)
-          el.addEventListener("mouseleave", handleMouseLeaveLink)
-        })
+    const attachListeners = () => {
+      const selectors = [
+        "a", "button", "select", "input", '[role="button"]',
+        ".dot-nav-item", ".dot-nav a", ".dot-nav button",
+        ".proc-num", ".svc-card", ".why-card", ".fmcg-country", ".geo-tag",
+      ]
+      document.querySelectorAll(selectors.join(",")).forEach((el) => {
+        el.addEventListener("mouseenter", handleMouseEnterLink)
+        el.addEventListener("mouseleave", handleMouseLeaveLink)
       })
     }
 
-    attachLinkListeners()
-    const observer = new MutationObserver(() => attachLinkListeners())
+    attachListeners()
+    const observer = new MutationObserver(() => attachListeners())
     observer.observe(document.body, { childList: true, subtree: true })
 
     return () => {
@@ -66,12 +83,14 @@ export function Cursor() {
       document.documentElement.classList.remove("cursor-none")
       window.removeEventListener("mousemove", handleMouseMove)
       observer.disconnect()
-      const selectors = ["a", "button", "select", "input", '[role="button"]']
-      selectors.forEach((sel) => {
-        document.querySelectorAll(sel).forEach((el) => {
-          el.removeEventListener("mouseenter", handleMouseEnterLink)
-          el.removeEventListener("mouseleave", handleMouseLeaveLink)
-        })
+      const selectors = [
+        "a", "button", "select", "input", '[role="button"]',
+        ".dot-nav-item", ".dot-nav a", ".dot-nav button",
+        ".proc-num", ".svc-card", ".why-card", ".fmcg-country", ".geo-tag",
+      ]
+      document.querySelectorAll(selectors.join(",")).forEach((el) => {
+        el.removeEventListener("mouseenter", handleMouseEnterLink)
+        el.removeEventListener("mouseleave", handleMouseLeaveLink)
       })
     }
   }, [animate, handleMouseMove, handleMouseEnterLink, handleMouseLeaveLink])

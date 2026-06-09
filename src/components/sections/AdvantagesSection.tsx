@@ -57,7 +57,7 @@ export function AdvantagesSection() {
       id="advantages"
       ref={ref}
       className={cn(
-        "section relative bg-white px-[10.3%] py-28 max-lg:px-[6%] max-lg:py-24 max-md:px-7 max-md:py-20",
+        "section relative bg-[#f4f6f8] px-[10.3%] py-28 max-lg:px-[6%] max-lg:py-24 max-md:px-7 max-md:py-20",
         "translate-y-8 opacity-0 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)]",
         "data-[visible=true]:translate-y-0 data-[visible=true]:opacity-100",
       )}
