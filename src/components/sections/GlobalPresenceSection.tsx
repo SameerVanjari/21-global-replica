@@ -119,10 +119,13 @@ export function GlobalPresenceSection() {
             <div
               key={office.name}
               style={{ left: office.x, top: office.y }}
-              className="absolute z-10 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-1"
+              className="geo-tag group absolute z-10 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-1 transition-all duration-300 hover:z-20"
             >
-              <span className="border-text-primary inline-flex h-2 w-2 rounded-full border bg-white shadow-sm" />
-              <span className="text-text-primary mt-1 border border-border bg-white/95 px-2 py-0.5 font-mono font-sans text-[9px] tracking-[0.15em] uppercase shadow-sm">
+              <span className="relative inline-flex h-3 w-3 items-center justify-center">
+                <span className="absolute inline-flex h-5 w-5 rounded-full border-2 border-brand/0 transition-all duration-300 group-hover:border-brand/30 group-hover:scale-125" />
+                <span className="inline-flex h-2 w-2 rounded-full border border-brand/40 bg-white shadow-sm transition-all duration-300 group-hover:scale-[2.5] group-hover:border-brand group-hover:bg-brand" />
+              </span>
+              <span className="mt-1 border border-transparent bg-white/95 px-2 py-0.5 font-mono font-sans text-[9px] uppercase tracking-[0.15em] text-[#1b365d]/70 shadow-sm transition-all duration-300 group-hover:scale-110 group-hover:border-brand/20 group-hover:text-brand">
                 {office.name}
               </span>
             </div>
