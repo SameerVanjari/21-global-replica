@@ -6,33 +6,27 @@ import { cn } from "@/lib/utils"
 const SERVICES = [
   {
     num: "01",
-    title: "Commodity Trading",
-    desc: "Strategic sourcing and delivery of high-quality commodities across global markets with precision execution and deep supply chain integration.",
+    title: "Strategic Resource Acquisition",
+    subtitle: "STRATEGIC RESOURCE ACQUISITION",
+    desc: "We identify and procure high-quality energy resources and industrial goods from vetted global suppliers, ensuring supply security and pricing optimization.",
   },
   {
     num: "02",
-    title: "Asset Investment",
-    desc: "Disciplined investment strategies across diverse asset classes with a focus on long-term value creation and risk-managed portfolio allocation.",
+    title: "Cross-Border Contracting",
+    subtitle: "CROSS-BORDER CONTRACTING",
+    desc: "Airtight negotiation, contract structuring, legal compliance, and multi-jurisdictional clearing processes for seamless international resource trades.",
   },
   {
     num: "03",
-    title: "FMCG Distribution",
-    desc: "End-to-end distribution solutions for fast-moving consumer goods across emerging and developed markets with robust logistical frameworks.",
+    title: "Supply Chain Operations",
+    subtitle: "END-TO-END TRANSIT LOGISTICS",
+    desc: "Managing complex maritime shipping, customs clearances, storage nodes, and real-time cargo tracking to ensure zero-delay operations.",
   },
   {
     num: "04",
-    title: "Downstream Oil",
-    desc: "Integrated downstream petroleum operations including refining, distribution, and retail network management across strategic corridors.",
-  },
-  {
-    num: "05",
-    title: "Global Logistics",
-    desc: "Comprehensive supply chain management and logistics solutions optimised for international trade flows and cross-border efficiency.",
-  },
-  {
-    num: "06",
-    title: "Strategic Advisory",
-    desc: "Bespoke advisory services leveraging deep market intelligence and cross-border transaction expertise for institutional and sovereign clients.",
+    title: "Market Penetration Support",
+    subtitle: "GLOBAL EXPANSION INFRASTRUCTURE",
+    desc: "Providing global brands and commodity producers with deep local relationships and compliance structures to scale in high-growth networks.",
   },
 ]
 
@@ -87,7 +81,7 @@ export function ServicesSection() {
         </div>
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-          {SERVICES.map(({ num, title, desc }, i) => (
+          {SERVICES.map(({ num, title, subtitle, desc }, i) => (
             <div
               key={num}
               className="svc-card group border border-brand/10 p-8 transition-all duration-[400ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-brand/30 hover:bg-brand/[0.02]"
@@ -99,6 +93,9 @@ export function ServicesSection() {
               <h3 className="heading-sub mt-4 font-sans text-[0.95rem] font-normal tracking-[0.15em] uppercase text-brand">
                 {title}
               </h3>
+              <span className="mt-1 block font-sans text-[0.55rem] tracking-[0.2em] uppercase text-brand-muted/40">
+                {subtitle}
+              </span>
               <p className="mt-4 font-sans text-[0.85rem] font-light leading-[1.8] text-brand-muted">{desc}</p>
               <div className="mt-6 h-[1px] w-6 bg-brand/20 transition-all duration-[400ms] group-hover:w-full group-hover:bg-brand/40" />
             </div>

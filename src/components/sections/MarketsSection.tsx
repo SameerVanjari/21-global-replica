@@ -5,24 +5,20 @@ import { cn } from "@/lib/utils"
 
 const MARKETS = [
   {
-    region: "Middle East",
-    hub: "Dubai",
-    address: "Dubai Multi Commodities Centre, UAE",
-    desc: "Gateway to GCC, MENA, and South Asian markets with deep regional expertise and established trading relationships.",
+    title: "Oil & Gas",
+    desc: "Active sourcing, contract structuring, and compliance navigation for crude oil, refined distillates, and specialized gas resources.",
   },
   {
-    region: "Asia Pacific",
-    hub: "Singapore",
-    address: "Ocean Financial Centre, Singapore",
-    desc: "Hub for Southeast Asian and Far East operations, leveraging Singapore's position as a global trade nexus.",
+    title: "Industrial Materials",
+    desc: "Coordination of critical minerals, chemical products, and bulk industrial inputs for manufacturing clusters worldwide.",
   },
   {
-    region: "Europe",
-    hub: "Geneva",
-    address: "Rue du Rhone, Geneva, Switzerland",
-    desc: "European trading desk and financial operations centre with access to continental commodity markets.",
+    title: "Energy Resources",
+    desc: "Providing global supply nodes with reliable energy allocations, managing transit risk and hedging credit exposures.",
   },
 ]
+
+const REGIONS = ["Middle East", "Asia Pacific", "Western Europe", "CIS Regions"]
 
 export function MarketsSection() {
   const ref = useRef<HTMLElement>(null)
@@ -51,44 +47,37 @@ export function MarketsSection() {
       )}
     >
       <span className="eyebrow block font-sans text-[0.65rem] font-normal tracking-[0.35em] uppercase text-brand mb-8">
-        Markets
+        MARKETS
       </span>
 
-      <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-20 mb-20">
-        <div className="lg:col-span-5">
-          <h2 className="heading-section font-sans text-[clamp(1.5rem,2.5vw,2.4rem)] font-extralight leading-[1.35] tracking-[0.18em] uppercase text-brand">
-            Global
-            <br />
-            Presence
-          </h2>
-        </div>
-        <div className="lg:col-span-6">
-          <p className="body-text font-sans text-[0.95rem] font-light leading-[1.9] text-brand-muted">
-            Our tri-continental presence provides unparalleled access to key trading corridors, enabling
-            seamless cross-border operations and deep market penetration across the world&apos;s most dynamic
-            economies.
-          </p>
-        </div>
+      <h2 className="heading-section font-sans text-[clamp(1.5rem,2.5vw,2.4rem)] font-extralight leading-[1.35] tracking-[0.18em] uppercase text-brand mb-20">
+        OPERATING SECTORS &
+        <br />
+        GLOBAL COMMODITIES
+      </h2>
+
+      <div className="grid grid-cols-1 gap-12 md:grid-cols-3 lg:gap-16 mb-20">
+        {MARKETS.map(({ title, desc }, i) => (
+          <div
+            key={title}
+            className="pt-8"
+          >
+            <h3 className="font-sans text-[clamp(1rem,1.5vw,1.1rem)] font-light tracking-[0.15em] uppercase text-brand mb-4">
+              {title}
+            </h3>
+            <p className="font-sans text-[0.85rem] font-light leading-relaxed text-brand-muted">{desc}</p>
+          </div>
+        ))}
       </div>
 
-      <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
-        {MARKETS.map(({ region, hub, address, desc }, i) => (
-          <div
+      <div className="flex flex-wrap gap-x-8 gap-y-3 pt-8">
+        {REGIONS.map((region) => (
+          <span
             key={region}
-            className="geo-tag group relative flex flex-col transition-all duration-[400ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
+            className="font-sans text-[0.55rem] tracking-[0.25em] uppercase text-brand-muted font-light"
           >
-            <div className="mb-6 h-[1px] w-12 bg-brand/20 transition-all duration-[400ms] group-hover:w-20 group-hover:bg-brand/40" />
-            <span className="font-sans text-[0.6rem] font-normal tracking-[0.3em] uppercase text-brand-muted/60">
-              {region}
-            </span>
-            <h3 className="mt-2 font-sans text-[1.1rem] font-light tracking-[0.1em] uppercase text-brand">
-              {hub}
-            </h3>
-            <p className="mt-1 font-sans text-[0.72rem] font-light tracking-[0.05em] uppercase text-brand-muted/50">
-              {address}
-            </p>
-            <p className="mt-3 font-sans text-[0.85rem] font-light leading-[1.8] text-brand-muted">{desc}</p>
-          </div>
+            {region}
+          </span>
         ))}
       </div>
     </section>
